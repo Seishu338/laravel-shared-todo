@@ -2,22 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Group;
 use App\Models\Todo;
-use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class TodoController extends Controller
+class GroupController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $groups = Auth::user()->groups;
-
-        return view('todos.index', compact('groups'));
+        //
     }
 
     /**
@@ -25,7 +23,7 @@ class TodoController extends Controller
      */
     public function create()
     {
-        //
+        return view('groups.create');
     }
 
     /**
@@ -33,13 +31,19 @@ class TodoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $group = new Group();
+        $group->host_id = Auth::id();
+        $group->save();
+
+        $group->users()->sync($request->ids[]);
+
+        return view('groups.create');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Todo $todo)
+    public function show(Group $group)
     {
         //
     }
@@ -47,7 +51,7 @@ class TodoController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Todo $todo)
+    public function edit(Group $group)
     {
         //
     }
@@ -55,7 +59,7 @@ class TodoController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Todo $todo)
+    public function update(Request $request, Group $group)
     {
         //
     }
@@ -63,7 +67,7 @@ class TodoController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Todo $todo)
+    public function destroy(Group $group)
     {
         //
     }
