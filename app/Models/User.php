@@ -25,6 +25,11 @@ class User extends Authenticatable implements MustVerifyEmail
         $this->notify(new CustomVerifyEmail());
     }
 
+    public function groups()
+    {
+        return $this->belongsToMany(Group::class);
+    }
+
     /**
      * The attributes that are mass assignable.
      *
