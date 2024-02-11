@@ -35,6 +35,14 @@
                                 <input type="text" name="ids[]" class="form-control">
                             </div>
                         </div>
+                        @if (session('flash_message'))
+                        <div>
+                            <div class="alert alert-danger col-md-6 offset-md-4 d-grid gap-2" role="alert">
+                                {{ session('flash_message') }}
+                            </div>
+                        </div>
+                        @endif
+                        <input type="hidden" name="ids[]" value="{{$user_id}}">
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4 d-grid gap-2">
                                 <button type="submit" class="btn btn-primary btn-block">作成</button>

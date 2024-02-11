@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Group;
-use App\Models\Todo;
+use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -23,7 +23,8 @@ class GroupController extends Controller
      */
     public function create()
     {
-        return view('groups.create');
+        $user_id = Auth::user()->id;
+        return view('groups.create', compact('user_id'));
     }
 
     /**
@@ -35,9 +36,19 @@ class GroupController extends Controller
         $group->host_id = Auth::id();
         $group->save();
 
-        $group->users()->sync($request->ids[]);
+        $ids = array_filter($request->input('ids'));
 
-        return view('groups.create');
+        foreach ($ids as $id) {
+            if (User::where('code', $id)->doesntExist()) {
+                return back()->with('flash_message', 'ユーザーが存在しません。');
+            } else {
+                $user = User::where('code', $id)->get();
+            }
+        }
+
+        $group->users()->sync($user);
+
+        return back();
     }
 
     /**
