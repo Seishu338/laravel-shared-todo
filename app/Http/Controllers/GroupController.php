@@ -15,8 +15,14 @@ class GroupController extends Controller
      */
     public function index()
     {
-        $groups = Auth::user()->groups()->where('mytodo', 0)->get();
-        return view('groups.index', compact('groups'));
+        if (Auth::user()->groups()->where('mytodo', 0)->exists()) {
+            $groups = Auth::user()->groups()->where('mytodo', 0)->get();
+            $flag = 1;
+        } else {
+            $groups = 0;
+            $flag = 0;
+        }
+        return view('groups.index', compact('groups', 'flag'));
     }
 
     /**

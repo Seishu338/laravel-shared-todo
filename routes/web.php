@@ -15,9 +15,9 @@ use App\Http\Controllers\GroupController;
 |
 */
 
-Route::get('/', [TodoController::class, 'index'])->middleware(['auth', 'verified']);;
+Route::get('/', [TodoController::class, 'index'])->middleware(['auth', 'verified']);
 
 Auth::routes(['verify' => true]);
 
-Route::resource('todos', TodoController::class);
-Route::resource('groups', GroupController::class);
+Route::resource('todos', TodoController::class)->middleware(['auth', 'verified']);
+Route::resource('groups', GroupController::class)->middleware(['auth', 'verified']);

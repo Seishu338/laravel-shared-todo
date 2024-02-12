@@ -69,7 +69,7 @@
         <div class="col-4">
             <div class="card text-bg-light">
                 <div class="card-body">
-                    <h4 class="card-title ms-1 mb-0">共有{{$group->name}}</h4>
+                    <h4 class="card-title ms-1 mb-0">共有Todo&nbsp; &#0039;{{$group->name}} &#0039;</h4>
                     <div class="button_solid001 my-3">
                         <a href="#" data-bs-toggle="modal" data-bs-target="#addsharedTodoModal{{ $group->id }}">+Todo追加</a>
                     </div>

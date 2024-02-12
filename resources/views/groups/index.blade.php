@@ -8,6 +8,11 @@
                 <a class="btn btn-light border mx-2 px-3" href="{{route('groups.create')}}" role="button">+グループ作成</a>
             </div>
         </div>
+        @if($flag ==0)
+        <div class="row my-2">
+            <h3 class="my-3">現在、グループに所属していません。</h3>
+        </div>
+        @else
         <div class="row my-2">
             @foreach($groups as $group)
             <div class="col-4">
@@ -25,6 +30,7 @@
             </div>
             @endforeach
         </div>
+        @endif
     </div>
 </div>
 @endsection
