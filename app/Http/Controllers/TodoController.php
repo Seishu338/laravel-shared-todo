@@ -15,16 +15,12 @@ class TodoController extends Controller
      */
     public function index()
     {
-        $groups = Auth::user()->groups()->orderby('mytodo', 'asc')->get();
+        $groups = Auth::user()->groups()->sortable()->get();
 
         return view('todos.index', compact('groups'));
     }
 
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function create()
     {
         $group = new Group();
         $group->host_id = Auth::id();
@@ -33,8 +29,17 @@ class TodoController extends Controller
         $group->save();
         $group->users()->sync($group->host_id);
 
+        return to_route('todos.index');
+    }
+
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
         $todo = new Todo();
-        $todo->group_id = $group->id;
+        $todo->group_id = $request->input('group_id');
         $todo->content = $request->input('content');
         $todo->save();
 

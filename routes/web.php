@@ -19,5 +19,5 @@ Route::get('/', [TodoController::class, 'index'])->middleware(['auth', 'verified
 
 Auth::routes(['verify' => true]);
 
-Route::resource('todos', TodoController::class)->only(['index', 'store', 'update', 'destroy']);
+Route::resource('todos', TodoController::class);
 Route::resource('groups', GroupController::class);

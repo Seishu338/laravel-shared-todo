@@ -20,7 +20,6 @@
                             @endforeach
                         </div>
                         <a href="#" class="btn btn-outline-primary">編集</a>
-                        <a href="#" class="btn btn-outline-primary">Todo作成</a>
                     </div>
                 </div>
             </div>
