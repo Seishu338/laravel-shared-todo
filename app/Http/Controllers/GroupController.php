@@ -15,7 +15,8 @@ class GroupController extends Controller
      */
     public function index()
     {
-        //
+        $groups = Auth::user()->groups()->where('mytodo', 0)->get();
+        return view('groups.index', compact('groups'));
     }
 
     /**
@@ -23,8 +24,8 @@ class GroupController extends Controller
      */
     public function create()
     {
-        $user_id = Auth::user()->id;
-        return view('groups.create', compact('user_id'));
+        $code = Auth::user()->code;
+        return view('groups.create', compact('code'));
     }
 
     /**
@@ -34,21 +35,21 @@ class GroupController extends Controller
     {
         $group = new Group();
         $group->host_id = Auth::id();
-        $group->save();
-
+        $group->name = $request->input('name');
         $ids = array_filter($request->input('ids'));
 
         foreach ($ids as $id) {
             if (User::where('code', $id)->doesntExist()) {
                 return back()->with('flash_message', 'ユーザーが存在しません。');
             } else {
-                $user = User::where('code', $id)->get();
+                $users = User::where('code', $id)->first();
+                $user[] = $users->id;
             }
         }
-
+        $group->save();
         $group->users()->sync($user);
 
-        return back();
+        return to_route('groups.index');
     }
 
     /**

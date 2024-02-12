@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Todo;
-use App\Models\User;
+use App\Models\Group;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -15,41 +15,30 @@ class TodoController extends Controller
      */
     public function index()
     {
-        $groups = Auth::user()->groups;
+        $groups = Auth::user()->groups()->orderby('mytodo', 'asc')->get();
 
         return view('todos.index', compact('groups'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
-        //
-    }
+        $group = new Group();
+        $group->host_id = Auth::id();
+        $group->name = 'Mytodo';
+        $group->mytodo = 1;
+        $group->save();
+        $group->users()->sync($group->host_id);
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Todo $todo)
-    {
-        //
-    }
+        $todo = new Todo();
+        $todo->group_id = $group->id;
+        $todo->content = $request->input('content');
+        $todo->save();
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Todo $todo)
-    {
-        //
+        return to_route('todos.index');
     }
 
     /**
