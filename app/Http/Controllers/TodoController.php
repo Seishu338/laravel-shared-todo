@@ -10,6 +10,21 @@ use Illuminate\Support\Facades\Auth;
 
 class TodoController extends Controller
 {
+
+    public function addmytodo(Todo $todo)
+    {
+        $group = Auth::user()->groups()->where('mytodo', 1)->first();
+        $mytodo = new Todo();
+        $mytodo->content = $todo->content;
+        $mytodo->group_id = $group->id;
+        $mytodo->working = 1;
+        $mytodo->save();
+
+        $todo->working = 1;
+        $todo->update();
+
+        return to_route('todos.index');
+    }
     /**
      * Display a listing of the resource.
      */
@@ -24,7 +39,7 @@ class TodoController extends Controller
     {
         $group = new Group();
         $group->host_id = Auth::id();
-        $group->name = 'Mytodo';
+        $group->name = 'MyTodo';
         $group->mytodo = 1;
         $group->save();
         $group->users()->sync($group->host_id);

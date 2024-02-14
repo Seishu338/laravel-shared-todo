@@ -30,7 +30,7 @@
                     </form>
                 </li>
                 <li class="nav-item mr-5">
-                    <a class="nav-link" href="">マイページ</a>
+                    <a class="nav-link" href="{{ route('mypage') }}">マイページ</a>
                 </li>
                 @endguest
             </ul>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Group;
 use App\Models\User;
 use App\Http\Controllers\Controller;
+use App\Jobs\SendGroupJoinedMail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -22,6 +23,8 @@ class GroupController extends Controller
             $groups = 0;
             $flag = 0;
         }
+
+
         return view('groups.index', compact('groups', 'flag'));
     }
 

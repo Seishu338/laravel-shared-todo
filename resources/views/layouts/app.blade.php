@@ -31,6 +31,7 @@
         @component('components.footer')
         @endcomponent
     </div>
+    <script src="{{ asset('/js/sharedtodo.js') }}"></script>
 </body>
 
 </html>

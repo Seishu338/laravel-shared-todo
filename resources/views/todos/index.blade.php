@@ -14,6 +14,7 @@
     <div class="row">
         @foreach($groups as $group)
         @if($group->mytodo ==1)
+        <!-- mytodo -->
         <div class="col-4">
             <div class="card text-bg-light">
                 <div class="card-body">
@@ -43,7 +44,6 @@
                             </div>
                         </div>
                     </div>
-                    @if($group->todos()->get() !== NULL)
                     @foreach($group->todos()->get() as $todo)
                     <div class="card mx-2 mb-2">
                         <div class="card-body">
@@ -61,11 +61,11 @@
                         </div>
                     </div>
                     @endforeach
-                    @endif
                 </div>
             </div>
         </div>
         @else
+        <!-- 共有todo -->
         <div class="col-4">
             <div class="card text-bg-light">
                 <div class="card-body">
@@ -73,6 +73,7 @@
                     <div class="button_solid001 my-3">
                         <a href="#" data-bs-toggle="modal" data-bs-target="#addsharedTodoModal{{ $group->id }}">+Todo追加</a>
                     </div>
+                    <!-- modal -->
                     <div class="modal fade" id="addsharedTodoModal{{ $group->id }}" tabindex="-1" aria-labelledby="addsharedTodoModalLabel{{ $group->id }}" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
@@ -94,9 +95,9 @@
                             </div>
                         </div>
                     </div>
-                    @if($group->todos()->get() !== NULL)
                     @foreach($group->todos()->get() as $todo)
-                    <div class="card mx-2 mb-2">
+                    <div class="card mx-2 mb-2" id="shared-todo">
+                        <span id="shared-todo-working" data-working="{{ $todo->working }}"></span>
                         <div class="card-body">
                             <div class="d-flex justify-content-between align-items-center mb-2">
                                 <h5 class="card-title ms-1 mb-0">{{$todo->content}}</h5>
@@ -105,14 +106,13 @@
                                     <ul class="dropdown-menu dropdown-menu-end text-center" aria-labelledby="dropdownMenuLink">
                                         <li><a href="#" class="dropdown-item">編集</a></li>
                                         <div class="dropdown-divider"></div>
-                                        <li><a href="#" class="dropdown-item">削除</a></li>
+                                        <li><a href="{{route('todos.addmytodo',$todo)}}" class="dropdown-item">+MyTodo</a></li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
                     </div>
                     @endforeach
-                    @endif
                 </div>
             </div>
         </div>

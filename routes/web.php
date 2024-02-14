@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TodoController;
 use App\Http\Controllers\GroupController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,4 +21,13 @@ Route::get('/', [TodoController::class, 'index'])->middleware(['auth', 'verified
 Auth::routes(['verify' => true]);
 
 Route::resource('todos', TodoController::class)->middleware(['auth', 'verified']);
+Route::get('todos/{todo}/addmytodo', [TodoController::class, 'addmytodo'])->name('todos.addmytodo');
+
 Route::resource('groups', GroupController::class)->middleware(['auth', 'verified']);
+Route::controller(UserController::class)->group(function () {
+    Route::get('users/mypage', 'mypage')->name('mypage')->middleware(['auth', 'verified']);
+    Route::get('users/mypage/edit', 'edit')->name('mypage.edit');
+    Route::put('users/mypage', 'update')->name('mypage.update');
+    Route::get('users/mypage/password/edit', 'edit_password')->name('mypage.edit_password');
+    Route::put('users/mypage/password', 'update_password')->name('mypage.update_password');
+});
