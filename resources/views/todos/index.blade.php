@@ -44,8 +44,9 @@
                             </div>
                         </div>
                     </div>
-                    @foreach($group->todos()->get() as $todo)
-                    <div class="card mx-2 mb-2">
+                    @foreach($group->todos()->where('done','0')->get() as $todo)
+                    @if($todo->working==NULL)
+                    <div class="card mx-2 my-3">
                         <div class="card-body">
                             <div class="d-flex justify-content-between align-items-center mb-2">
                                 <h5 class="card-title ms-1 mb-0">{{$todo->content}}</h5>
@@ -54,7 +55,50 @@
                                     <ul class="dropdown-menu dropdown-menu-end text-center" aria-labelledby="dropdownMenuLink">
                                         <li><a href="#" class="dropdown-item">編集</a></li>
                                         <div class="dropdown-divider"></div>
-                                        <li><a href="#" class="dropdown-item">削除</a></li>
+                                        <li><a href="{{route('todos.done', $todo)}}" class="dropdown-item">完了</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @else
+                    <div class="card mx-2 my-3">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <h5 class="card-title ms-1 mb-0">{{$todo->content}}</h5>
+                                <div class="dropdown dropend">
+                                    <a href="#" class="dropdown-toggle px-1 fs-5 fw-bold link-dark text-decoration-none" id="dropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false"></a>
+                                    <ul class="dropdown-menu dropdown-menu-end text-center" aria-labelledby="dropdownMenuLink">
+                                        <li><a href="#" class="dropdown-item">編集</a></li>
+                                        <div class="dropdown-divider"></div>
+                                        <li><a href="{{route('todos.returnshare', $todo)}}" class="dropdown-item">完了!</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @endif
+                    @endforeach
+                    <div class="mt-2">
+                        <hr>
+                    </div>
+                    @foreach($group->todos()->where('done','1')->get() as $todo)
+                    <div class="card mx-2 my-3">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <h5 class="card-title ms-1 mb-0"><span class="checkmark001"></span>{{$todo->content}}</h5>
+                                <div class="dropdown dropend">
+                                    <a href="#" class="dropdown-toggle px-1 fs-5 fw-bold link-dark text-decoration-none" id="dropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false"></a>
+                                    <ul class="dropdown-menu dropdown-menu-end text-center" aria-labelledby="dropdownMenuLink">
+                                        <li><a href="#" class="dropdown-item">編集</a></li>
+                                        <div class="dropdown-divider"></div>
+                                        <li>
+                                            <form action="{{route('todos.destroy', $todo)}}" method="post">
+                                                @csrf
+                                                @method('delete')
+                                                <button type="submit" class="dropdown-item">削除</button>
+                                            </form>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
@@ -95,18 +139,54 @@
                             </div>
                         </div>
                     </div>
-                    @foreach($group->todos()->get() as $todo)
-                    <div class="card mx-2 mb-2" id="shared-todo">
-                        <span id="shared-todo-working" data-working="{{ $todo->working }}"></span>
-                        <div class="card-body">
+                    @foreach($group->todos()->where('done','0')->get() as $todo)
+                    @if($todo->working==NULL)
+                    <div class="card mx-2 my-3">
+                        <div class="card-body" id="card">
                             <div class="d-flex justify-content-between align-items-center mb-2">
                                 <h5 class="card-title ms-1 mb-0">{{$todo->content}}</h5>
-                                <div class="dropdown dropend">
+                                <div class="dropdown dropend" id="dropdown">
                                     <a href="#" class="dropdown-toggle px-1 fs-5 fw-bold link-dark text-decoration-none" id="dropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false"></a>
                                     <ul class="dropdown-menu dropdown-menu-end text-center" aria-labelledby="dropdownMenuLink">
                                         <li><a href="#" class="dropdown-item">編集</a></li>
                                         <div class="dropdown-divider"></div>
                                         <li><a href="{{route('todos.addmytodo',$todo)}}" class="dropdown-item">+MyTodo</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @else
+                    <div class="card mx-2 my-3">
+                        <div class="card-body" style="opacity:0.5;" id="card">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <h5 class="card-title ms-1 mb-0">{{$todo->content}}</h5>
+                            </div>
+                            <p class="fw-bold">進行中&nbsp;:&nbsp;{{$todo->working}}</p>
+                        </div>
+                    </div>
+                    @endif
+                    @endforeach
+                    <div class="mt-2">
+                        <hr>
+                    </div>
+                    @foreach($group->todos()->where('done','1')->get() as $todo)
+                    <div class="card mx-2 my-3">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <h5 class="card-title ms-1 mb-0"><span class="checkmark001"></span>{{$todo->content}}</h5>
+                                <div class="dropdown dropend">
+                                    <a href="#" class="dropdown-toggle px-1 fs-5 fw-bold link-dark text-decoration-none" id="dropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false"></a>
+                                    <ul class="dropdown-menu dropdown-menu-end text-center" aria-labelledby="dropdownMenuLink">
+                                        <li><a href="#" class="dropdown-item">編集</a></li>
+                                        <div class="dropdown-divider"></div>
+                                        <li>
+                                            <form action="{{route('todos.destroy', $todo)}}" method="post">
+                                                @csrf
+                                                @method('delete')
+                                                <button type="submit" class="dropdown-item">削除</button>
+                                            </form>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>

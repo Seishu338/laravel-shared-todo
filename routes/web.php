@@ -22,6 +22,9 @@ Auth::routes(['verify' => true]);
 
 Route::resource('todos', TodoController::class)->middleware(['auth', 'verified']);
 Route::get('todos/{todo}/addmytodo', [TodoController::class, 'addmytodo'])->name('todos.addmytodo');
+Route::get('todos/{todo}/done', [TodoController::class, 'done'])->name('todos.done');
+Route::get('todos/{todo}/returnshare', [TodoController::class, 'returnshare'])->name('todos.returnshare');
+
 
 Route::resource('groups', GroupController::class)->middleware(['auth', 'verified']);
 Route::controller(UserController::class)->group(function () {

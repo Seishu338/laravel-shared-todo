@@ -11,16 +11,37 @@ use Illuminate\Support\Facades\Auth;
 class TodoController extends Controller
 {
 
+    public function done(Todo $todo)
+    {
+        $todo->done = 1;
+        $todo->update();
+
+        return to_route('todos.index');
+    }
+
+    public function returnshare(Todo $todo)
+    {
+        $sharetodo = Todo::where('content', $todo->content)->where('working', $todo->working)->first();
+        $sharetodo->working = NULL;
+        $sharetodo->done = 1;
+        $sharetodo->update();
+
+        $todo->delete();
+
+        return to_route('todos.index');
+    }
+
+
     public function addmytodo(Todo $todo)
     {
         $group = Auth::user()->groups()->where('mytodo', 1)->first();
         $mytodo = new Todo();
         $mytodo->content = $todo->content;
         $mytodo->group_id = $group->id;
-        $mytodo->working = 1;
+        $mytodo->working = Auth::user()->name;
         $mytodo->save();
 
-        $todo->working = 1;
+        $todo->working = Auth::user()->name;
         $todo->update();
 
         return to_route('todos.index');
@@ -30,7 +51,7 @@ class TodoController extends Controller
      */
     public function index()
     {
-        $groups = Auth::user()->groups()->sortable()->get();
+        $groups = Auth::user()->groups()->sortable()->orderBy('mytodo', 'asc')->get();
 
         return view('todos.index', compact('groups'));
     }
@@ -66,7 +87,10 @@ class TodoController extends Controller
      */
     public function update(Request $request, Todo $todo)
     {
-        //
+        $todo->content = $request->input('content');
+        $todo->save();
+
+        return redirect()->route('goals.index');
     }
 
     /**
@@ -74,6 +98,8 @@ class TodoController extends Controller
      */
     public function destroy(Todo $todo)
     {
-        //
+        $todo->delete();
+
+        return to_route('todos.index');
     }
 }

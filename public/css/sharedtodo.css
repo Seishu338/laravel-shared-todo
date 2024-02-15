@@ -18,3 +18,33 @@
     transform: translateY(-2px);
     box-shadow: 0 15px 30px -5px rgb(0 0 0 / 15%), 0 0 5px rgb(0 0 0 / 10%);
 }
+
+/* checkmrak */
+.checkmark001 {
+    padding-left: 24px;
+    position: relative;
+}
+.checkmark001:before,
+.checkmark001:after {
+    content: "";
+    display: block;
+    position: absolute;
+}
+.checkmark001:before {
+    width: 16px;
+    height: 16px;
+    background: #ffffff;
+    border: 1px solid #000000;
+    left: 0;
+    top: 2px;
+}
+.checkmark001:after {
+    border-left: 2px solid #ff0000;
+    border-bottom: 2px solid #ff0000;
+    width: 18px;
+    height: 5px;
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+    left: 5px;
+    top: 3px;
+}
