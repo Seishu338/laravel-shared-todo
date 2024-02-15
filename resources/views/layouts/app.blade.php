@@ -28,8 +28,6 @@
         <main class="py-4">
             @yield('content')
         </main>
-        @component('components.footer')
-        @endcomponent
     </div>
     <script src="{{ asset('/js/sharedtodo.js') }}"></script>
 </body>

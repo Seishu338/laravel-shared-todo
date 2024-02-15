@@ -88,9 +88,9 @@ class TodoController extends Controller
     public function update(Request $request, Todo $todo)
     {
         $todo->content = $request->input('content');
-        $todo->save();
+        $todo->update();
 
-        return redirect()->route('goals.index');
+        return to_route('todos.index');
     }
 
     /**
