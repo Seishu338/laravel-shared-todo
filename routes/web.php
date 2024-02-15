@@ -17,7 +17,6 @@ use App\Http\Controllers\UserController;
 */
 
 Route::get('/', [TodoController::class, 'index'])->middleware(['auth', 'verified']);
-
 Auth::routes(['verify' => true]);
 
 Route::resource('todos', TodoController::class)->middleware(['auth', 'verified']);

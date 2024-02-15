@@ -22,6 +22,7 @@
                     <div class="button_solid001 my-3">
                         <a href="#" data-bs-toggle="modal" data-bs-target="#addTodoModal{{ $group->id }}">+Todo追加</a>
                     </div>
+                    <span id="mytodo" data-mytodo="1"></span>
                     <!-- modal -->
                     <div class="modal fade" id="addTodoModal{{ $group->id }}" tabindex="-1" aria-labelledby="addTodoModalLabel{{ $group->id }}" aria-hidden="true">
                         <div class="modal-dialog">
@@ -71,7 +72,7 @@
                                     <ul class="dropdown-menu dropdown-menu-end text-center" aria-labelledby="dropdownMenuLink">
                                         <li><a href="#" class="dropdown-item">編集</a></li>
                                         <div class="dropdown-divider"></div>
-                                        <li><a href="{{route('todos.returnshare', $todo)}}" class="dropdown-item">完了!</a></li>
+                                        <li><a href="{{route('todos.returnshare', $todo)}}" class="dropdown-item">完了</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -196,12 +197,6 @@
                 </div>
             </div>
         </div>
-        @endif
-        @if($group->mytodo == 1)
-        <script>
-            const button = document.getElementById('mytodo-button');
-            button.style.display = "none";
-        </script>
         @endif
         @endforeach
     </div>
