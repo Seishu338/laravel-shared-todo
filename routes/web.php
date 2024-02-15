@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TodoController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\TagController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,8 +25,9 @@ Route::get('todos/{todo}/addmytodo', [TodoController::class, 'addmytodo'])->name
 Route::get('todos/{todo}/done', [TodoController::class, 'done'])->name('todos.done');
 Route::get('todos/{todo}/returnshare', [TodoController::class, 'returnshare'])->name('todos.returnshare');
 
-
 Route::resource('groups', GroupController::class)->middleware(['auth', 'verified']);
+Route::resource('tags', TagController::class)->only(['store', 'destroy'])->middleware('auth', 'verified');
+
 Route::controller(UserController::class)->group(function () {
     Route::get('users/mypage', 'mypage')->name('mypage')->middleware(['auth', 'verified']);
     Route::get('users/mypage/edit', 'edit')->name('mypage.edit');

@@ -9,7 +9,19 @@
                 @csrf
                 @method('patch')
                 <div class="modal-body">
-                    <input type="text" class="form-control" name="content" value="{{$todo->content}}">
+                    <input type="text" class="form-control border-3" name="content" value="{{$todo->content}}">
+                    <div class="d-flex flex-wrap my-2 mx-1">
+                        @foreach ($tags as $tag)
+                        <div class="d-flex align-items-center mt-2 me-2">
+                            @if ($todo->tags()->where('tag_id', $tag->id)->exists())
+                            <input class="me-1" type="checkbox" name="tag_ids[]" value="{{ $tag->id }}" checked>
+                            @else
+                            <input class="me-1" type="checkbox" name="tag_ids[]" value="{{ $tag->id }}">
+                            @endif
+                            <span class="tag">{{ $tag->name }}</span>
+                        </div>
+                        @endforeach
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">閉じる</button>

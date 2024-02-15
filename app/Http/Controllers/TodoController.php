@@ -52,8 +52,9 @@ class TodoController extends Controller
     public function index()
     {
         $groups = Auth::user()->groups()->sortable()->orderBy('mytodo', 'asc')->get();
+        $tags = Auth::user()->tags;
 
-        return view('todos.index', compact('groups'));
+        return view('todos.index', compact('groups', 'tags'));
     }
 
     public function create()
@@ -89,6 +90,7 @@ class TodoController extends Controller
     {
         $todo->content = $request->input('content');
         $todo->update();
+        $todo->tags()->sync($request->input('tag_ids'));
 
         return to_route('todos.index');
     }

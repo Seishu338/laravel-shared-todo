@@ -13,4 +13,9 @@ class Todo extends Model
     {
         return $this->belongsTo(Group::class);
     }
+
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class);
+    }
 }

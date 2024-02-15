@@ -3,12 +3,14 @@
 
 <div class="container">
     <div class="row mb-3">
-        <div class="col-lg-4 col d-flex flex-row">
+        <div class="col d-flex flex-row">
             <a class="btn btn-light border mx-2 px-3" id="mytodo-button" href="{{route('todos.create')}}" role="button">+mytodoの追加</a>
             <a class="btn btn-light border mx-2 px-3" href="{{route('groups.index')}}" role="button">+グループ</a>
+            <a class="btn btn-light border mx-2 px-3" href="#" data-bs-toggle="modal" data-bs-target="#addTagModal" role="button">+タグ</a>
             <div class="mx-2 px-3 mt-2 fw-bold">
                 @sortablelink('mytodo', 'sort') &#8646;
             </div>
+            @include('modals.add_tag')
         </div>
     </div>
     <div class="row">
@@ -40,6 +42,13 @@
                                 </div>
                                 @include('modals.edit_todo')
                             </div>
+                            <div class="d-flex  justify-content-end mx-1">
+                                @foreach ($todo->tags()->orderBy('id', 'asc')->get() as $tag)
+                                <div class="d-flex align-items-center mt-2 me-2">
+                                    <span class="tag-index">{{ $tag->name }}</span>
+                                </div>
+                                @endforeach
+                            </div>
                         </div>
                     </div>
                     @else
@@ -56,6 +65,13 @@
                                     </ul>
                                 </div>
                                 @include('modals.edit_todo')
+                            </div>
+                            <div class="d-flex  justify-content-end mx-1">
+                                @foreach ($todo->tags()->orderBy('id', 'asc')->get() as $tag)
+                                <div class="d-flex align-items-center mt-2 me-2">
+                                    <span class="tag-index">{{ $tag->name }}</span>
+                                </div>
+                                @endforeach
                             </div>
                         </div>
                     </div>
