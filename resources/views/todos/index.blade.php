@@ -5,7 +5,7 @@
     <div class="row mb-3">
         <div class="col d-flex flex-row">
             <a class="btn btn-light border mx-2 px-3" id="mytodo-button" href="{{route('todos.create')}}" role="button">+mytodoの追加</a>
-            <a class="btn btn-light border mx-2 px-3" href="{{route('groups.index')}}" role="button">+グループ</a>
+            <a class="btn btn-light border mx-2 px-3" href="{{route('groups.create')}}" role="button">+グループ</a>
             <a class="btn btn-light border mx-2 px-3" href="#" data-bs-toggle="modal" data-bs-target="#addTagModal" role="button">+タグ</a>
             <div class="mx-2 px-3 mt-2 fw-bold">
                 @sortablelink('mytodo', 'sort') &#8646;
@@ -17,7 +17,7 @@
         @foreach($groups as $group)
         @if($group->mytodo ==1)
         <!-- mytodo -->
-        <div class="col-4">
+        <div class="col-md-4 col">
             <div class="card text-bg-light mb-3">
                 <div class="card-body">
                     <h4 class="card-title ms-1 mb-0">{{$group->name}}</h4>
@@ -34,7 +34,7 @@
                                 <h5 class="card-title ms-1 mb-0">{{$todo->content}}</h5>
                                 <div class="dropdown dropend">
                                     <a href="#" class="dropdown-toggle px-1 fs-5 fw-bold link-dark text-decoration-none" id="dropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false"></a>
-                                    <ul class="dropdown-menu dropdown-menu-end text-center" aria-labelledby="dropdownMenuLink">
+                                    <ul class="dropdown-menu text-center" aria-labelledby="dropdownMenuLink">
                                         <li><a href="#" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#editTodoModal{{ $todo->id }}">編集</a></li>
                                         <div class="dropdown-divider"></div>
                                         <li><a href="{{route('todos.done', $todo)}}" class="dropdown-item">完了</a></li>
@@ -88,8 +88,6 @@
                                 <div class="dropdown dropend">
                                     <a href="#" class="dropdown-toggle px-1 fs-5 fw-bold link-dark text-decoration-none" id="dropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false"></a>
                                     <ul class="dropdown-menu dropdown-menu-end text-center" aria-labelledby="dropdownMenuLink">
-                                        <li><a href="#" class="dropdown-item">編集</a></li>
-                                        <div class="dropdown-divider"></div>
                                         <li>
                                             <form action="{{route('todos.destroy', $todo)}}" method="post">
                                                 @csrf
@@ -100,6 +98,13 @@
                                     </ul>
                                 </div>
                             </div>
+                            <div class="d-flex  justify-content-end mx-1">
+                                @foreach ($todo->tags()->orderBy('id', 'asc')->get() as $tag)
+                                <div class="d-flex align-items-center mt-2 me-2">
+                                    <span class="tag-index">{{ $tag->name }}</span>
+                                </div>
+                                @endforeach
+                            </div>
                         </div>
                     </div>
                     @endforeach
@@ -108,7 +113,7 @@
         </div>
         @else
         <!-- 共有todo -->
-        <div class="col-4">
+        <div class="col-md-4 col">
             <div class="card text-bg-light mb-3">
                 <div class="card-body">
                     <h4 class="card-title ms-1 mb-0">共有Todo&nbsp;{{$group->name}}</h4>
@@ -132,6 +137,13 @@
                                 </div>
                                 @include('modals.edit_todo')
                             </div>
+                            <div class="d-flex  justify-content-end mx-1">
+                                @foreach ($todo->tags()->orderBy('id', 'asc')->get() as $tag)
+                                <div class="d-flex align-items-center mt-2 me-2">
+                                    <span class="tag-index">{{ $tag->name }}</span>
+                                </div>
+                                @endforeach
+                            </div>
                         </div>
                     </div>
                     @else
@@ -140,7 +152,16 @@
                             <div class="d-flex justify-content-between align-items-center mb-2">
                                 <h5 class="card-title ms-1 mb-0">{{$todo->content}}</h5>
                             </div>
-                            <p class="fw-bold">進行中&nbsp;:&nbsp;{{$todo->working}}</p>
+                            <div class="d-flex justify-content-between">
+                                <p class="fw-bold">進行中&nbsp;:&nbsp;{{$todo->working}}</p>
+                                <div class="d-flex  justify-content-end mx-1">
+                                    @foreach ($todo->tags()->orderBy('id', 'asc')->get() as $tag)
+                                    <div class="d-flex align-items-center mt-2 me-2">
+                                        <span class="tag-index">{{ $tag->name }}</span>
+                                    </div>
+                                    @endforeach
+                                </div>
+                            </div>
                         </div>
                     </div>
                     @endif
@@ -156,8 +177,6 @@
                                 <div class="dropdown dropend">
                                     <a href="#" class="dropdown-toggle px-1 fs-5 fw-bold link-dark text-decoration-none" id="dropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false"></a>
                                     <ul class="dropdown-menu dropdown-menu-end text-center" aria-labelledby="dropdownMenuLink">
-                                        <li><a href="#" class="dropdown-item">編集</a></li>
-                                        <div class="dropdown-divider"></div>
                                         <li>
                                             <form action="{{route('todos.destroy', $todo)}}" method="post">
                                                 @csrf
@@ -167,6 +186,13 @@
                                         </li>
                                     </ul>
                                 </div>
+                            </div>
+                            <div class="d-flex  justify-content-end mx-1">
+                                @foreach ($todo->tags()->orderBy('id', 'asc')->get() as $tag)
+                                <div class="d-flex align-items-center mt-2 me-2">
+                                    <span class="tag-index">{{ $tag->name }}</span>
+                                </div>
+                                @endforeach
                             </div>
                         </div>
                     </div>

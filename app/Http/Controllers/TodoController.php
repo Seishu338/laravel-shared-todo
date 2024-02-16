@@ -41,6 +41,12 @@ class TodoController extends Controller
         $mytodo->working = Auth::user()->name;
         $mytodo->save();
 
+        $tags = $todo->tags;
+        foreach ($tags as $tag) {
+            $tag_ids[] = $tag->id;
+        }
+        $mytodo->tags()->sync($tag_ids);
+
         $todo->working = Auth::user()->name;
         $todo->update();
 
@@ -91,6 +97,10 @@ class TodoController extends Controller
         $todo->content = $request->input('content');
         $todo->update();
         $todo->tags()->sync($request->input('tag_ids'));
+        if ($todo->working !== NULL) {
+            $sharetodo = Todo::where('content', $todo->content)->where('working', $todo->working)->first();
+            $sharetodo->tags()->sync($request->input('tag_ids'));
+        }
 
         return to_route('todos.index');
     }

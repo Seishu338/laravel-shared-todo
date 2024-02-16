@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-10">
             <div class="mb-2">
-                <a href="{{route('groups.index')}}" class="text-decoration-none">&lt; 戻る</a>
+                <a href="{{route('todos.index')}}" class="text-decoration-none">&lt; 戻る</a>
             </div>
             <div class="card">
                 <div class="card-header">

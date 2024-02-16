@@ -9,7 +9,7 @@
                 @csrf
                 @method('patch')
                 <div class="modal-body">
-                    <input type="text" class="form-control border-3" name="content" value="{{$todo->content}}">
+                    <input type="text" class="form-control border-3 @error('content') is-invalid @enderror" required name="content" value="{{$todo->content}}">
                     <div class="d-flex flex-wrap my-2 mx-1">
                         @foreach ($tags as $tag)
                         <div class="d-flex align-items-center mt-2 me-2">
@@ -23,6 +23,11 @@
                         @endforeach
                     </div>
                 </div>
+                @error('content')
+                <span class="invalid-feedback" role="alert">
+                    <strong>入力してください</strong>
+                </span>
+                @enderror
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">閉じる</button>
                     <button type="submit" class="btn btn-primary">編集</button>

@@ -8,9 +8,14 @@
             <form action="{{route('todos.store')}}" method="post">
                 @csrf
                 <div class="modal-body">
-                    <input type="text" class="form-control" name="content">
+                    <input type="text" class="form-control @error('content') is-invalid @enderror" required name="content">
                     <input type="hidden" class="form-control" name="group_id" value="{{$group->id}}">
                 </div>
+                @error('content')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+                @enderror
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">閉じる</button>
                     <button type="submit" class="btn btn-primary">追加</button>
