@@ -8,6 +8,8 @@ use App\Http\Controllers\Controller;
 use App\Jobs\SendGroupJoinedMail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\makeGroupEmail;
 
 class GroupController extends Controller
 {
@@ -53,10 +55,13 @@ class GroupController extends Controller
             } else {
                 $users = User::where('code', $id)->first();
                 $user[] = $users->id;
+                $useremail[] = $users->email;
             }
         }
         $group->save();
         $group->users()->sync($user);
+
+        Mail::to($useremail)->send(new makeGroupEmail());
 
         return to_route('todos.index');
     }
