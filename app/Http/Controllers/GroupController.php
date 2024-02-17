@@ -58,7 +58,7 @@ class GroupController extends Controller
         $group->save();
         $group->users()->sync($user);
 
-        return to_route('groups.index');
+        return to_route('todos.index');
     }
 
     /**

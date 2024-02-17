@@ -44,6 +44,11 @@
                 </div>
                 <br>
 
+                <div>
+                    <label for="code" class="text-md-left">会員コード</label>
+                    <p>{{$user->code}}</p>
+                </div>
+
                 <hr>
                 <div class="text-center">
                     <button type="submit" class="btn btn-primary mt-3 w-25">

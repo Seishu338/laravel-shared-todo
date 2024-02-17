@@ -3,34 +3,56 @@
 @section('content')
 
 <div class="container d-flex justify-content-center mt-3">
-    <div clasa="row">
-        <div class="col-10 text-center">
-            <h2>マイページ</h2>
-        </div>
+    <div class="w-50">
+        <h1>マイページ</h1>
+
         <hr>
-        <div class="row">
-            <div class="col-6">
-                <div class="card">
-                    <div class="card-body text-center">
-                        <h3 class="card-title">会員情報編集</h3>
-                        <p class="card-text my-1">アカウント情報の編集</p>
+
+        <div class="container">
+            <div class="d-flex justify-content-between">
+                <div class="row">
+                    <div class="col-2 d-flex align-items-center">
+                        <i class="fas fa-user fa-3x"></i>
                     </div>
-                    <div class="card-footer text-center py-0">
-                        <a href="{{route('mypage.edit')}}" class="btn">編集</a>
+                    <div class="col-9 d-flex align-items-center ms-2 mt-3">
+                        <div class="d-flex flex-column">
+                            <label for="user-name">会員情報の編集</label>
+                            <p>アカウント情報の編集</p>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-6">
-                <div class="card">
-                    <div class="card-body text-center">
-                        <h3 class="card-title">パスワード変更</h3>
-                        <p class="card-text my-1">パスワードを変更します</p>
-                    </div>
-                    <div class="card-footer text-center py-0">
-                        <a href="{{route('mypage.edit_password')}}" class="btn">変更</a>
-                    </div>
+                <div class="d-flex align-items-center">
+                    <a href="{{route('mypage.edit')}}">
+                        <i class="fas fa-chevron-right fa-2x"></i>
+                    </a>
                 </div>
             </div>
         </div>
+
+        <hr>
+
+        <div class="container">
+            <div class="d-flex justify-content-between">
+                <div class="row">
+                    <div class="col-2 d-flex align-items-center">
+                        <i class="fas fa-archive fa-3x"></i>
+                    </div>
+                    <div class="col-9 d-flex align-items-center ms-2 mt-3">
+                        <div class="d-flex flex-column">
+                            <label for="user-name">注文履歴</label>
+                            <p>注文履歴を確認できます</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex align-items-center">
+                    <a href="{{route('mypage')}}">
+                        <i class="fas fa-chevron-right fa-2x"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <hr>
     </div>
-    @endsection
+</div>
+@endsection

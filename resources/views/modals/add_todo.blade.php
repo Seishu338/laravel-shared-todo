@@ -8,7 +8,7 @@
             <form action="{{route('todos.store')}}" method="post">
                 @csrf
                 <div class="modal-body">
-                    <input type="text" class="form-control @error('content') is-invalid @enderror" required name="content">
+                    <input type="text" class="form-control border-3 @error('content') is-invalid @enderror" required name="content">
                     <input type="hidden" class="form-control" name="group_id" value="{{$group->id}}">
                 </div>
                 @error('content')

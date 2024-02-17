@@ -16,6 +16,7 @@
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    <script src="https://kit.fontawesome.com/a6e7161fb1.js" crossorigin="anonymous"></script>
 
     <link href="{{ asset('css/sharedtodo.css') }}" rel="stylesheet">
 
