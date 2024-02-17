@@ -26,7 +26,6 @@ class GroupController extends Controller
             $flag = 0;
         }
 
-
         return view('groups.index', compact('groups', 'flag'));
     }
 
@@ -64,14 +63,6 @@ class GroupController extends Controller
         Mail::to($useremail)->send(new makeGroupEmail());
 
         return to_route('todos.index');
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Group $group)
-    {
-        //
     }
 
     /**

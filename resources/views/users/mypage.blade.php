@@ -4,7 +4,7 @@
 
 <div class="container d-flex justify-content-center mt-3">
     <div class="w-50">
-        <h1>マイページ</h1>
+        <h2 class="text-center">マイページ</h2>
 
         <hr>
 
@@ -16,8 +16,8 @@
                     </div>
                     <div class="col-9 d-flex align-items-center ms-2 mt-3">
                         <div class="d-flex flex-column">
-                            <label for="user-name">会員情報の編集</label>
-                            <p>アカウント情報の編集</p>
+                            <label for="user-name">会員情報</label>
+                            <p>会員情報の詳細・編集</p>
                         </div>
                     </div>
                 </div>
@@ -35,17 +35,40 @@
             <div class="d-flex justify-content-between">
                 <div class="row">
                     <div class="col-2 d-flex align-items-center">
-                        <i class="fas fa-archive fa-3x"></i>
+                        <i class="fa-solid fa-people-group size"></i>
                     </div>
                     <div class="col-9 d-flex align-items-center ms-2 mt-3">
                         <div class="d-flex flex-column">
-                            <label for="user-name">注文履歴</label>
-                            <p>注文履歴を確認できます</p>
+                            <label for="user-name">グループ</label>
+                            <p>グループの詳細・編集</p>
                         </div>
                     </div>
                 </div>
                 <div class="d-flex align-items-center">
-                    <a href="{{route('mypage')}}">
+                    <a href="{{route('mypage.groups')}}">
+                        <i class="fas fa-chevron-right fa-2x"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="container">
+            <div class="d-flex justify-content-between">
+                <div class="row">
+                    <div class="col-2 d-flex align-items-center">
+                        <i class="fa-solid fa-lock fa-3x"></i>
+                    </div>
+                    <div class="col-9 d-flex align-items-center ms-2 mt-3">
+                        <div class="d-flex flex-column">
+                            <label for="user-name">パスワード</label>
+                            <p>パスワードの変更</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex align-items-center">
+                    <a href="{{route('mypage.edit_password')}}">
                         <i class="fas fa-chevron-right fa-2x"></i>
                     </a>
                 </div>

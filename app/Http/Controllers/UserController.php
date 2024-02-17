@@ -10,6 +10,18 @@ use Illuminate\Support\Facades\Auth;
 class UserController extends Controller
 {
 
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function mypage()
+    {
+        $user = Auth::user();
+
+        return view('users.mypage', compact('user'));
+    }
+
     public function update_password(Request $request)
     {
         $request->validate([
@@ -34,17 +46,6 @@ class UserController extends Controller
         return view('users.edit_password');
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function mypage()
-    {
-        $user = Auth::user();
-
-        return view('users.mypage', compact('user'));
-    }
 
     /**
      * Show the form for editing the specified resource.
