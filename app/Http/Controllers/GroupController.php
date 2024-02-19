@@ -60,6 +60,7 @@ class GroupController extends Controller
         $group->save();
         $group->users()->sync($user);
 
+        Mail::to($useremail)->send(new MakeGroupEmail());
 
         return to_route('todos.index');
     }
