@@ -20,7 +20,7 @@ use App\Http\Controllers\TagController;
 Route::get('/', [TodoController::class, 'index'])->middleware(['auth', 'verified']);
 Auth::routes(['verify' => true]);
 
-Route::resource('todos', TodoController::class)->middleware(['auth', 'verified']);
+Route::resource('todos', TodoController::class)->only(['index', 'store', 'update', 'destroy'])->middleware(['auth', 'verified']);
 Route::get('todos/{todo}/addmytodo', [TodoController::class, 'addmytodo'])->name('todos.addmytodo');
 Route::get('todos/{todo}/done', [TodoController::class, 'done'])->name('todos.done');
 Route::get('todos/{todo}/returnshare', [TodoController::class, 'returnshare'])->name('todos.returnshare');
@@ -38,7 +38,7 @@ Route::controller(UserController::class)->group(function () {
 
 Route::controller(GroupController::class)->group(function () {
     Route::get('users/mypage/groups', 'index')->name('mypage.groups');
-    Route::get('users/mypage/groups/edit', 'edit')->name('mypage.groups.edit');
-    Route::put('users/mypage/groups', 'update')->name('mypage.groups.update');
-    Route::get('users/mypage/groups/destroy', 'destroy')->name('mypage.groups.desroy');
+    Route::get('users/mypage/groups/{group}/edit', 'edit')->name('mypage.groups.edit');
+    Route::put('users/mypage/groups/{group}', 'update')->name('mypage.groups.update');
+    Route::get('users/mypage/groups/{group}/destroy', 'destroy')->name('mypage.groups.destroy');
 });

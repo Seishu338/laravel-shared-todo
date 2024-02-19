@@ -45,7 +45,10 @@ class TodoController extends Controller
         foreach ($tags as $tag) {
             $tag_ids[] = $tag->id;
         }
-        $mytodo->tags()->sync($tag_ids);
+
+        if (isset($tag_ids)) {
+            $mytodo->tags()->sync($tag_ids);
+        }
 
         $todo->working = Auth::user()->name;
         $todo->update();
@@ -57,24 +60,20 @@ class TodoController extends Controller
      */
     public function index()
     {
-        $groups = Auth::user()->groups()->sortable()->orderBy('mytodo', 'asc')->get();
+        if (Auth::user()->groups->where('mytodo', '1')->first() == NULL) {
+            $group = new Group();
+            $group->host_id = Auth::id();
+            $group->name = 'MyTodo';
+            $group->mytodo = 1;
+            $group->save();
+            $group->users()->sync($group->host_id);
+        }
+
+        $groups = Auth::user()->groups()->orderBy('mytodo', 'asc')->get();
         $tags = Auth::user()->tags;
 
         return view('todos.index', compact('groups', 'tags'));
     }
-
-    public function create()
-    {
-        $group = new Group();
-        $group->host_id = Auth::id();
-        $group->name = 'MyTodo';
-        $group->mytodo = 1;
-        $group->save();
-        $group->users()->sync($group->host_id);
-
-        return to_route('todos.index');
-    }
-
 
     /**
      * Store a newly created resource in storage.

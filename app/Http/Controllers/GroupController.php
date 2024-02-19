@@ -60,7 +60,6 @@ class GroupController extends Controller
         $group->save();
         $group->users()->sync($user);
 
-        Mail::to($useremail)->send(new makeGroupEmail());
 
         return to_route('todos.index');
     }
@@ -86,6 +85,8 @@ class GroupController extends Controller
      */
     public function destroy(Group $group)
     {
-        //
+        $group->delete();
+
+        return to_route('mypage.groups');
     }
 }

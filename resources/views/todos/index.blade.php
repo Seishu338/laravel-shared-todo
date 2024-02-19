@@ -4,12 +4,8 @@
 <div class="container">
     <div class="row mb-3">
         <div class="col d-flex flex-row">
-            <a class="btn btn-light border mx-2 px-3" id="mytodo-button" href="{{route('todos.create')}}" role="button">+mytodoの追加</a>
             <a class="btn btn-light border mx-2 px-3" href="{{route('groups.create')}}" role="button">+グループ</a>
             <a class="btn btn-light border mx-2 px-3" href="#" data-bs-toggle="modal" data-bs-target="#addTagModal" role="button">+タグ</a>
-            <div class="mx-2 px-3 mt-2 fw-bold">
-                @sortablelink('mytodo', 'sort') &#8646;
-            </div>
             @include('modals.add_tag')
         </div>
     </div>
@@ -24,7 +20,6 @@
                     <div class="button_solid001 my-3">
                         <a href="#" data-bs-toggle="modal" data-bs-target="#addTodoModal{{ $group->id }}">+Todo追加</a>
                     </div>
-                    <span id="mytodo" data-mytodo="1"></span>
                     @include('modals.add_todo')
                     @foreach($group->todos()->where('done','0')->get() as $todo)
                     @if($todo->working==NULL)
