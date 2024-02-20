@@ -31,7 +31,6 @@
                                 @endforeach
                             </div>
                             <div class="d-flex justify-content-end">
-                                <a href="{{ route('mypage.groups.edit', $group) }}" class="btn btn-outline-primary mx-1">編集</a>
                                 <form action="{{ route('mypage.groups.destroy', $group) }}" method="post">
                                     @csrf
                                     @method('delete')

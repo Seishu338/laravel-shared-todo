@@ -38,7 +38,7 @@ class TodoController extends Controller
         $mytodo = new Todo();
         $mytodo->content = $todo->content;
         $mytodo->group_id = $group->id;
-        $mytodo->working = Auth::user()->name;
+        $mytodo->working = Auth::id();
         $mytodo->save();
 
         $tags = $todo->tags;
@@ -50,7 +50,7 @@ class TodoController extends Controller
             $mytodo->tags()->sync($tag_ids);
         }
 
-        $todo->working = Auth::user()->name;
+        $todo->working = Auth::id();
         $todo->update();
 
         return to_route('todos.index');

@@ -18,7 +18,7 @@
                 <div class="card-body">
                     <h4 class="card-title ms-1 mb-0">{{$group->name}}</h4>
                     <div class="button_solid001 my-3">
-                        <a href="#" data-bs-toggle="modal" data-bs-target="#addTodoModal{{ $group->id }}">+Todo追加</a>
+                        <a href="#" data-bs-toggle="modal" data-bs-target="#addTodoModal{{ $group->id }}">+Todo</a>
                     </div>
                     @include('modals.add_todo')
                     @foreach($group->todos()->where('done','0')->get() as $todo)
@@ -113,7 +113,7 @@
                 <div class="card-body">
                     <h4 class="card-title ms-1 mb-0">共有Todo&nbsp;{{$group->name}}</h4>
                     <div class="button_solid001 my-3">
-                        <a href="#" data-bs-toggle="modal" data-bs-target="#addTodoModal{{ $group->id }}">+Todo追加</a>
+                        <a href="#" data-bs-toggle="modal" data-bs-target="#addTodoModal{{ $group->id }}">+Todo</a>
                     </div>
                     @include('modals.add_todo')
                     @foreach($group->todos()->where('done','0')->get() as $todo)
@@ -148,7 +148,7 @@
                                 <h5 class="card-title ms-1 mb-0">{{$todo->content}}</h5>
                             </div>
                             <div class="d-flex justify-content-between">
-                                <p class="fw-bold">進行中&nbsp;:&nbsp;{{$todo->working}}</p>
+                                <p class="fw-bold">進行中&nbsp;:&nbsp;{{$todo->user->name}}</p>
                                 <div class="d-flex  justify-content-end mx-1">
                                     @foreach ($todo->tags()->orderBy('id', 'asc')->get() as $tag)
                                     <div class="d-flex align-items-center mt-2 me-2">

@@ -35,6 +35,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Tag::class);
     }
 
+    public function todos()
+    {
+        return $this->hasMany(Todo::class, 'working');
+    }
+
     /**
      * The attributes that are mass assignable.
      *

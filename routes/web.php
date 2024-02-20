@@ -38,7 +38,5 @@ Route::controller(UserController::class)->group(function () {
 
 Route::controller(GroupController::class)->group(function () {
     Route::get('users/mypage/groups', 'index')->name('mypage.groups');
-    Route::get('users/mypage/groups/{group}/edit', 'edit')->name('mypage.groups.edit');
-    Route::put('users/mypage/groups/{group}', 'update')->name('mypage.groups.update');
-    Route::get('users/mypage/groups/{group}/destroy', 'destroy')->name('mypage.groups.destroy');
+    Route::delete('users/mypage/groups/{group}/destroy', 'destroy')->name('mypage.groups.destroy');
 });
