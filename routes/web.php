@@ -5,6 +5,7 @@ use App\Http\Controllers\TodoController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TagController;
+use App\Http\Controllers\LineLoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,6 +20,9 @@ use App\Http\Controllers\TagController;
 
 Route::get('/', [TodoController::class, 'index'])->middleware(['auth', 'verified']);
 Auth::routes(['verify' => true]);
+
+Route::get('/linelogin',  [LineLoginController::class, 'linelogin'])->name('linelogin');
+Route::get('/callback',  [LineloginController::class, 'callback'])->name('callback');
 
 Route::resource('todos', TodoController::class)->only(['index', 'store', 'update', 'destroy'])->middleware(['auth', 'verified']);
 Route::get('todos/{todo}/addmytodo', [TodoController::class, 'addmytodo'])->name('todos.addmytodo');
