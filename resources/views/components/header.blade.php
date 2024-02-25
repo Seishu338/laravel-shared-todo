@@ -18,9 +18,6 @@
                 <li class="nav-item mr-5">
                     <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                 </li>
-                <li class="nav-item mr-5">
-                    <a href="{{route('linelogin')}}">LINEログイン</a>
-                </li>
                 <hr>
                 @else
                 <li class="nav-item mr-5">

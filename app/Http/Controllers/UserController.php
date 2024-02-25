@@ -25,8 +25,7 @@ class UserController extends Controller
     public function update_password(Request $request)
     {
         $request->validate([
-            'password' => 'required',
-            'password_confirm' => 'required'
+            'password' => 'required'
         ]);
 
         $user = Auth::user();

@@ -65,11 +65,16 @@
                             </div>
                         </div>
                     </form>
+                    <div class="row mt-2">
+                        <div class="d-flex justify-content-center">
+                            <a href="{{route('linelogin')}}"><img src="{{asset('img/btn_login_base.png')}}"></a>
+                        </div>
+                    </div>
                 </div>
             </div>
             <hr>
             <div class="d-flex justify-content-center">
-                <a class="mt-3 nagoyameshi-login-text" href="{{route('register')}}">新規登録</a>
+                <a class="mt-3 login-text" href="{{route('register')}}">新規登録</a>
             </div>
         </div>
     </div>

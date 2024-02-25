@@ -19,7 +19,7 @@
                         <label for="password" class="text-md-left">新しいパスワード</label>
                     </div>
                     <div>
-                        <input id="password" type="password" name="password" class="form-control @error('password') is-invalid @enderror" autocomplete="new_password">
+                        <input id="password" type="password" name="password" class="form-control @error('password') is-invalid @enderror" required autocomplete="new_password">
                         @error('password')
                         <span class="invalid-feedback" role="alert">
                             <strong>パスワードを入力してください。</strong>
@@ -34,12 +34,7 @@
                         <label for="password-confirm" class="text-md-left">確認用</label>
                     </div>
                     <div>
-                        <input id="password-confirm" type="password" class="form-control @error('password') is-invalid @enderror" name="password_confirm" autocomplete="passowrd_confirm">
-                        @error('password_confirm')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>確認用パスワードを入力してください。</strong>
-                        </span>
-                        @enderror
+                        <input id="password-confirm" type="password" class="form-control" required name="password_confirm" autocomplete="passowrd_confirm">
                     </div>
                 </div>
                 <div class="text-danger">
