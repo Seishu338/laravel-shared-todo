@@ -47,19 +47,20 @@ class GroupController extends Controller
         $group->host_id = Auth::id();
         $group->name = $request->input('name');
         $ids = array_filter($request->input('ids'));
-        $userEmails = [];
+        $users = [];
+        $userIds = [];
         foreach ($ids as $id) {
             if (User::where('code', $id)->doesntExist()) {
                 return back()->with('flash_message', 'ユーザーが存在しません。');
             } else {
-                $users = User::where('code', $id)->first();
-                $user[] = $users->id;
-                $userEmails[] = $users->email;
+                $user = User::where('code', $id)->first();
+                $users[] = $user;
+                $userIds[] = $user->id;
             }
         }
         $group->save();
-        $group->users()->sync($user);
-        SendGroupJoinedMail::dispatch($userEmails);
+        $group->users()->sync($userIds);
+        SendGroupJoinedMail::dispatch($users);
 
         return to_route('todos.index');
     }

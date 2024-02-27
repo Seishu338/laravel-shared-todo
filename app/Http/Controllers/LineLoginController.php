@@ -24,8 +24,9 @@ class LineLoginController extends Controller
         $scope = "&scope=openid%20profile";
         $prompt = "&prompt=consent";
         $nonce_uri = "&nonce=";
+        $bot_prompt = "&bot_prompt=normal";
 
-        $uri = $uri . $response_type . $client_id . $redirect_uri . $state_uri . $scope . $prompt . $nonce_uri;
+        $uri = $uri . $response_type . $client_id . $redirect_uri . $state_uri . $bot_prompt . $scope . $prompt . $nonce_uri;
 
         return redirect($uri);
     }
@@ -78,6 +79,10 @@ class LineLoginController extends Controller
 
     public function callback(Request $request)
     {
+        $url = $_SERVER['REQUEST_URI'];
+        if (strstr($url, 'error')) {
+            return redirect('/');
+        };
         $accessToken = $this->getAccessToken($request);
         $profile = $this->getProfile($accessToken);
 
