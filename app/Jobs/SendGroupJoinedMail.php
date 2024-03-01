@@ -12,9 +12,6 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\makeGroupEmail;
 use LINE\Clients\MessagingApi\Model\PushMessageRequest;
 use LINE\Clients\MessagingApi\Model\TextMessage;
-use LINE\LINEBot\HTTPClient\CurlHTTPClient;
-use LINE\LINEBot;
-use LINE\LINEBot\MessageBuilder\TextMessageBuilder;
 
 class SendGroupJoinedMail implements ShouldQueue
 {
